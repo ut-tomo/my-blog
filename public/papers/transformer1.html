@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI論文解説: Transformer Architecture - My Blog</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>My Blog</h1>
+    <nav>
+      <a href="/">ホーム</a>
+      <a href="/papers">論文</a>
+      <a href="/ml">機械学習</a>
+      <a href="/programming">プログラミング</a>
+      <a href="/biology">生物学</a>
+    </nav>
+  </header>
+  
+  <div class="page-layout">
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="/">ホーム</a> > <a href="/papers">論文</a> > AI論文解説: Transformer Architecture
+    </div>
+    
+    <article>
+      <h1>AI論文解説: Transformer Architecture</h1>
+      <p><strong>公開日:</strong> 2024年1月15日</p>
+      
+      <h2>概要</h2>
+      <p>この記事では、自然言語処理の分野で革命をもたらしたTransformerアーキテクチャについて詳しく解説します。</p>
+      
+      <h2>Transformerとは</h2>
+      <p>T今となってはChat GPTなんかですっかり実用化されてしまっていて
+        技術的にはすっかり身近なものになってしまっているTransformerモデルです。そのTransformerモデルが
+        最初に提唱されたのは2017年のGoogle研究者による"Attention is All You Needという論文でした（Vaswani et al., 2017）。
+        自分たちの論文が世間に、界隈に大きな影響を与えることがわかっていたかのような(というかわかっていたのでしょうが)洒落たタイトルの論文ですね。
+        この論文のすごいところは、アイデアとしては元から存在していた"Attention"という考え方を、
+        とにかく高速で計算できるようにしました、という単純風なものであるところにあると思っています。
+        この論文には難しい数式も全然出てこないし、何となくわかった気になるのは正直全然難しくないんですが、
+        それがChat GPTなどの生成AIのようなとんでもない性能のバックグラウンドにあると思うと頭がバグります。また追記します...</p>
+      
+      <h2>主な特徴</h2>
+      <ul>
+        <li>Self-Attention機構による並列処理</li>
+        <li>位置エンコーディング</li>
+        <li>マルチヘッドアテンション</li>
+        <li>フィードフォワードネットワーク</li>
+      </ul>
+      
+      <h2>まとめ</h2>
+      <p>Transformerアーキテクチャは、現代のNLPタスクにおいて不可欠な技術となっています。その理解は、最新のAI技術を学ぶ上で重要です。</p>
+    </article>
+  </main>
+  
+  <aside class="sidebar">
+    <h3>カテゴリ</h3>
+    <ul>
+      <li><a href="/papers" class="active">論文</a></li>
+      <li><a href="/ml">機械学習</a></li>
+      <li><a href="/programming">プログラミング</a></li>
+      <li><a href="/biology">生物学</a></li>
+    </ul>
+  </aside>
+</div>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">
+  <span>☰</span>
+</button>
+
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+  
+  <footer>
+    <p>&copy; 2024 My Blog. All rights reserved.</p>
+  </footer>
+
+  <script>
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+}
+</script>
+</body>
+</html>

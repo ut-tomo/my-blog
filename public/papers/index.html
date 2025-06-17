@@ -8,34 +8,70 @@
 </head>
 <body>
   <header>
-
+    <h1>My Blog</h1>
     <nav>
       <a href="/">ホーム</a>
       <a href="/papers">論文</a>
-      <a href="/ML">機械学習</a>
+      <a href="/ml">機械学習</a>
       <a href="/programming">プログラミング</a>
       <a href="/biology">生物学</a>
     </nav>
   </header>
   
-  <main class="container">
+  <div class="page-layout">
+  <main class="main-content">
     <div class="breadcrumb">
       <a href="/">ホーム</a> > 論文
     </div>
     
     <h2>論文カテゴリ</h2>
-    <p>AI・機械学習関連の論文の自分なりの解釈をまとめていけたらなと。</p>
+    <p>AI・機械学習関連の論文解説記事一覧</p>
     
     <ul class="article-list">
       <li>
-        <a href="/papers/ai-paper1">Attention is All you need</a>
-        <p>This is all you need to understand "Attention is all you need"(多分)</p>
+        <a href="/papers/transformer">AI論文解説: Transformer Architecture</a>
+        <p>Transformerアーキテクチャの詳細解説と実装のポイント</p>
       </li>
     </ul>
   </main>
   
+  <aside class="sidebar">
+    <h3>カテゴリ</h3>
+    <ul>
+      <li><a href="/papers" class="active">論文</a></li>
+      <li><a href="/ml">機械学習</a></li>
+      <li><a href="/programming">プログラミング</a></li>
+      <li><a href="/biology">生物学</a></li>
+    </ul>
+  </aside>
+</div>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">
+  <span>☰</span>
+</button>
+
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+  
   <footer>
     <p>&copy; 2024 My Blog. All rights reserved.</p>
   </footer>
+
+<script>
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+}
+</script>
 </body>
 </html>
