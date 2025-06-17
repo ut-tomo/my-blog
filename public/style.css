@@ -10,3 +10,6 @@ a {
 ul {
   line-height: 2;
 }
+html {
+  scroll-behavior: smooth;
+}
