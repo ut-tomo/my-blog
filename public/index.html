@@ -2,31 +2,45 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>お試しblog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog - カテゴリ一覧</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>カテゴリ一覧</h1>
-  <ul>
-  <li><a href="#papers">論文のまとめ</a></li>
-  <li><a href="#ML">本のまとめ</a></li>
-  <li><a href="#programming">プログラミング</a></li>
-  <li><a href="#biology">生物学</a></li>
-  </ul>
-
-  <hr />
-
-  <h2 id="papers">論文のまとめ</h2>
-  <p>論文記事の紹介...</p>
-
-  <h2 id="ML">機械学習のお勉強</h2>
-  <p>...</p>
-
-  <h2 id="programming">その他プログラミング関連</h2>
-  <p>...</p>
-
-  <h2 id="biology">その他生物学関連</h2>
-  <p>...</p>
-
+  <header>
+    <h1>My Blog</h1>
+    <nav>
+      <a href="/">ホーム</a>
+    </nav>
+  </header>
+  
+  <main class="container">
+    <h2>カテゴリ一覧</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <h3><a href="/papers">論文</a></h3>
+        <p>...</p>
+      </div>
+      
+      <div class="category-card">
+        <h3><a href="/ML">機械学習</a></h3>
+        <p>機械学習・AI関連のお勉強</p>
+      </div>
+      
+      <div class="category-card">
+        <h3><a href="/programming">その他プログラミング関連</a></h3>
+        <p>...</p>
+      </div>
+      
+      <div class="category-card">
+        <h3><a href="/biology">その他生物学関連</a></h3>
+        <p>...</p>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>&copy; 2024 My Blog. All rights reserved.</p>
+  </footer>
 </body>
 </html>
