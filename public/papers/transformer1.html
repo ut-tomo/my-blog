@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>This is all you need to understand "Attention Is All You Need"(多分)  - My Blog</title>
+  <title>This is all you need to understand "Attention Is All You Need"(多分) 準備 - My Blog</title>
   <link rel="stylesheet" href="/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
 </head>
 <body>
   <header>
@@ -18,32 +22,150 @@
     </div>
     
     <article>
-      <h1>This is all you need to understand "Attention Is All You Need"(多分)</h1>
+      <h1>This is all you need to understand "Attention Is All You Need"(多分) 準備</h1>
       <p> 2025年6月18日</p>
       
       <h2>概要</h2>
-      <p>この記事では、自然言語処理の分野で革命をもたらしたTransformerアーキテクチャについて詳しく解説します。</p>
+      <p>
+        この記事では、タイトルの通りTransformerモデルのオリジナルの論文である"Attention Is All You Need"を
+        この記事で完結できるような形で噛み砕いでいくことを目指します。準備、とかいたのは、脱線したりなんかしてしまって
+        長くなりそうなのでこの記事ではまだ読み始まりません。
+        一本めの記事なのでいろいろ目をつぶって下さい。。。
+      </p>
       
       <h2>Transformerとは</h2>
       <p>今となってはChat GPTなんかですっかり実用化されてしまっていて
         技術的にはすっかり身近なものになってしまっているTransformerモデルです。そのTransformerモデルが
         最初に提唱されたのは2017年のGoogle研究者による"Attention is All You Needという論文でした（Vaswani et al., 2017）。
         自分たちの論文が世間に、界隈に大きな影響を与えることがわかっていたかのような(というかわかっていたのでしょうが)洒落たタイトルの論文ですね。
+      </p>
+      <p>  
         この論文のすごいところは、アイデアとしては元から存在していた"Attention"という考え方を、
         とにかく高速で計算できるようにしました、という単純風なものであるところにあると思っています。
         この論文には難しい数式も全然出てこないし、何となくわかった気になるのは正直全然難しくないんですが、
-        それがChat GPTなどの生成AIのようなとんでもない性能のバックグラウンドにあると思うと頭がバグります。また追記します...</p>
+        それがChat GPTなどの生成AIのようなとんでもない性能を持つ奴らのバックグラウンドであると思うと頭がバグります。
+        GPT(Generative Pre-trained Transformer)系の生成モデルはその名前の通りTransformerモデルをベースにしていて、
+        厳密にいうとdecoderモデルなんかと呼ばれる原著論文とはちょっと構造が違うものにはなるのですが、
+        そのアイデアは基本的に同じで、この論文を読んだ後にはTransformerモデルの強力さに慄いてしまいます。
+        ちなみに原著論文でのTransformerモデルはencoderとdecoderの2つの部分から構成されていて、その違いは
+        原著論文では機械翻訳での応用を想定していたところにあります。
+      </p>
+      <p>
+        ちなみに自然言語処理という分野では従来は構文解析だったりなんだりといった
+        ルールベースのアプローチが行われてきていたと思うのですが(あんまり僕がそこに明るくないのでわからないですが)、この
+        モデルができてしまったことによりとりあえずTransformerに投げて仕舞えばいいじゃないかという
+        風潮はやはりあるようで、大学の自然言語処理関連の授業はこの部分の技術革新の打撃(というと響きが悪いですが)を受けて
+        かなり内容に迷いが出ているように見えています。
+      </p>
       
-      <h2>主な特徴</h2>
-      <ul>
-        <li>Self-Attention機構による並列処理</li>
-        <li>位置エンコーディング</li>
-        <li>マルチヘッドアテンション</li>
-        <li>フィードフォワードネットワーク</li>
-      </ul>
-      
-      <h2>まとめ</h2>
-      <p>Transformerアーキテクチャは、現代のNLPタスクにおいて不可欠な技術となっています。その理解は、最新のAI技術を学ぶ上で重要です。</p>
+      <h2>Attention</h2>
+      <p>まずはこのモデルの中核となっている"Attention Mechanism(注意機構)"について。
+        この"Attention"という仕組みは前述の通りこの論文の前から存在していたもので、
+        アイデアとしてはその言葉のまんまの解釈にかなり近いです。
+        その"注意を向ける"ということを、
+        <span class="red-underline">「要素集合の現在の関心に基づく重みづけ」</span>として実現するわけです。
+      </p>
+      <h3>pixel attribution</h3>
+      <p>
+        少し話がそれますが、個人的にすげえと思ったAttention関連の図を紹介したいです。VLM(Vision Language Model)という分野になるんでしょうか。
+        ある質問が入力された時に画像の各領域にそれぞれどれくらいの注意が向けられているかを可視化したものです。
+        Dosovitskiyらの論文（<a href="https://arxiv.org/abs/1804.00775">arXiv:1804.00775</a>）の中の図です。
+      </p>
+      <img src="../image/vml.png" alt="Dosovitskiy et al.(2018)のVLMの図" style="width: 100%; max-width: 600px;">
+
+      <p>
+        この図から、この動物は何か？という質問が来た時には明らかに動物の部分に注意が向けられていて、天気は？と聞かれた時は
+        空の部分に注意が向けられていることがわかります。そのPrediction Taskもしっかりと正解していますね。
+        これはめちゃめちゃうまくいった例なのかもしれませんが、初見ではかなり感動しました。この論文は全然ちゃんと読んでないんですけどね。
+      </p>
+      <div style="margin: 20px;"></div>
+      <p>
+        では改めてAttentionの具体的な理屈について。<br>
+        Attentionを計算する際の入力は集合になります。具体的な式の説明は先ほどのVLMの話を交えた方がわかりやすそう?だと思ったので、
+        その方向性でいこうと思います。
+      </p>
+      <p>
+        まず画像には各領域にベクトル\( \mathbf{z}_i\)が特徴として対応していて、問が\( q \)というQueryベクトルとして表現できるとします。
+        この時にある関数\(r\)を用いて
+      </p>
+      \[
+        r_i = r(\mathbf{z}_i, q)
+      \]
+      <p>
+        というものを定義し、それを正規化します。
+
+      \[
+        a_i = softmax(r_i) = \frac{e^{r_i}}{\sum_{j} e^{r_j}}
+      \]
+      <p>
+        これが前述の"重み付け"になります。何となくお気持ちは伝わったでしょうか。
+      </p>
+      <h2>Token</h2>
+      <p>
+        これに加えて"Attention is All You Need"を読むにあたって必要な知識は、入力列が"トークン"と呼ばれるベクトル列により表現されているということぐらいだと思います。
+        ここでいうトークンはWord2Vecを例に実験してみると理解しやすいでしょう。Word2Vecとはその名の通り単語をベクトルに変換したもので、似たような単語は
+        その空間で近い位置に配置されるようになっています。今のTransformerモデルでは必ずしもその入力トークンは単語区切りとなっていないようで、
+        その手法はもっと複雑になっているのだとは思いますが、基本的な考え方は似ているんじゃないかと思います。
+      </p>
+      <p>
+        そのWord2Vecでは、King - man + woman = queenとなるという話が有名なので実験してみました。以下にコードを貼っておくのでColabなどで興味があればいろいろ実験してみて下さい。
+      </p>
+      <div class="code-block">
+      <div class="code-header">
+        <span class="code-language">Python</span>
+        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+      </div>
+      <div class="code-content">
+        <pre><code>
+          !pip install gensim
+          import gensim.downloader as api
+          model = api.load("word2vec-google-news-300")
+
+          #king - man + woman
+          result = model.most_similar(positive=["king", "woman"], negative=["man"], topn=10)
+
+          print("Top 10 (king - man + woman):")
+          for word, similarity in result:
+              print(f"{word}: {similarity:.4f}")
+
+        </code></pre>
+      </div>
+      </div>
+      <p>
+        出力は以下の通りです。
+      </p>
+      <p class="pale-background">
+        Top 10 (king - man + woman):<br>
+        queen: 0.7118<br>
+        monarch: 0.6190<br>
+        princess: 0.5902<br>
+        crown_prince: 0.5499<br>
+        prince: 0.5377<br>
+        kings: 0.5237<br>
+        Queen_Consort: 0.5236<br>
+        queens: 0.5181<br>
+        sultan: 0.5099<br>
+        monarchy: 0.5087<br>
+      </p>
+      <p>
+        ほんとにQueenがトップに出てきました。こりゃすごいですね。Word2Vecは今は少しずつ下火になってきている技術なのかもしれませんが
+        初見の面白さがあるので好きです。
+      </p>
+      <p>
+        ところで、このWord2Vecというのは元々のモチベーションではスパムメールの検出などがあったのではないかと勝手に思っています。
+        例えば、「振り込め」という単語を目印にして弾く、というシステムでは「お金」と「送る」とかなんかがあった時には
+        人間が見たら明らかに詐欺だけれども機械は認識しないということになりますが、
+        Word2Vecを用いて小規模のニューラルネットを噛ませたりなんかすれば結構簡単に検出できたりするのではないですかね？
+        わかんないけど。
+      </p>
+      <div style="margin: 20px;"></div>
+      <hr>
+      <div style="margin: 20px;"></div>
+      <p>
+        いろいろ脱線してしまっていたらまあまあ長くなっていたので記事を分けます。見返してみたらめっちゃ日本語だらけで読みにくいなと。
+        結構書くのは難しいもんなんだなあと感じています。。。あんまたらたら書くと記事のコンセプトからずれそうなので、簡潔に
+        論文の内容を書きたいですね。
+      </p>
     </article>
   </main>
   
@@ -83,6 +205,40 @@ function closeSidebar() {
   
   sidebar.classList.remove('active');
   overlay.classList.remove('active');
+}
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block');
+  const codeContent = codeBlock.querySelector('.code-content code');
+  const text = codeContent.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('コピーに失敗しました:', err);
+    // フォールバック: 古いブラウザ対応
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
 }
 </script>
 </body>

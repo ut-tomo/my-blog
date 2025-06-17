@@ -333,3 +333,148 @@ article h2::after {
   transform: skew(-12deg);
   animation: highlighter 0.8s ease-out;
 }
+
+/* コードブロックのスタイル */
+.code-block {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: #2d3748;
+}
+
+.code-header {
+  background: #1a202c;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4a5568;
+}
+
+.code-language {
+  color: #a0aec0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.copy-btn {
+  background: #4299e1;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copy-btn:hover {
+  background: #3182ce;
+  transform: translateY(-1px);
+}
+
+.copy-btn.copied {
+  background: #38a169;
+}
+
+.copy-btn.copied::after {
+  content: "✓";
+  margin-left: 0.25rem;
+}
+
+.code-content {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.code-content pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.code-content code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* インラインコード */
+code {
+  background: rgba(255, 235, 59, 0.2);
+  color: #2d3748;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 0.875em;
+}
+
+/* シンタックスハイライト風の色付け */
+.code-content .keyword {
+  color: #f56565;
+  font-weight: bold;
+}
+
+.code-content .string {
+  color: #68d391;
+}
+
+.code-content .comment {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+.code-content .number {
+  color: #fbb6ce;
+}
+
+.code-content .function {
+  color: #63b3ed;
+}
+
+.code-content .variable {
+  color: #faf089;
+}
+
+/* スクロールバーのスタイル */
+.code-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.code-content::-webkit-scrollbar-track {
+  background: #1a202c;
+}
+
+.code-content::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+.code-content::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+.red-underline {
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-thickness: 2px;
+}
+
+.pale-background {
+  background-color: rgba(230, 242, 255, 0.9);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
