@@ -46,7 +46,7 @@
                     <p>\(if \quad f(n) = O(n^{log_ba-\epsilon}) \quad for \, all \quad \epsilon > 0 \implies T(n) = \Theta(n^{log_ba})\)</p>
                 </li>
                 <li>
-                    <p>\(if \quad f(n) = \Theta(n^{log_balg^kn}) \quad for \, some \quad k \geq 0 \implies T(n) = \Theta(n^{log_ba}log^{k+1}n)\)</p>
+                    <p>\(if \quad f(n) = \Theta(n^{log_balg^kn}) \quad for \, some \quad k \geq 0 \implies T(n) = \Theta(n^{log_ba}lg^{k+1}n)\)</p>
                 </li>
                 <li>
                     <p>\(if \quad f(n) = \Omega(n^{log_ba+\epsilon}) \quad for \, some \quad \epsilon > 0 \quad \)<br>
@@ -56,8 +56,44 @@
         </p>
         <p>
             これだけみるとうーんと唸るしかないですよね。ちなみに明記していませんでしたが\(n\)は基本的に十分に大きな数
-            について考えています。小さいnについて考えても計算料の見積もりとなるとあまり意味がないので。
+            について考えています。小さいnについて考えても計算量の見積もりとなるとあまり意味がないので。
         </p>
+
+        <h2>漸近記法</h2>
+        <p>
+        上で登場した\( O, \Theta, \Omega \)は漸近記法と呼ばれるもので、計算量の見積もりに使われるものですが、正直ビッグオー記法以外は僕は馴染みがなかったので
+        \( \Theta, \Omega \)について触れておきたいです。</p>
+        <div style="margin: 20px;"></div>
+        <h3>\(\Omega\)記法</h3>
+        <p>
+            \[
+            f(n) \in \Omega(g(n)) \Leftrightarrow \exists c > 0, n_0 \in \mathbb{N} \quad s.t. \quad f(n) \geq cg(n) \geq 0 \quad for \, all \quad n \geq n_0
+            \]
+        </p>
+        <h3>\(\Theta \)記法</h3>
+        <p>
+            \[
+            f(n) \in \Theta(g(n)) \Leftrightarrow \exists c_1, c_2 > 0, n_0 \in \mathbb{N} \quad s.t. \quad c_1g(n) \leq f(n) \leq c_2g(n) \quad for \, all \quad n \geq n_0
+            \]
+        </p>
+        <p>
+            ビッグオー記法は計算量の見積もりによくみる記法で、漸近的上界を与えるものです。つまり、
+            十分に大きな\( n \)に対して、\( f(n) \)は\( g(n) \)の定数倍以下であることを示します。
+            一方で、\(\Omega\)記法は漸近的下界を与えるもので、十分に大きな\( n \)に対して、\( f(n) \)は\( g(n) \)の定数倍以上であることを示します。
+            \(\Theta\)記法は、アルゴリズムイントロダクションでは漸近的に"タイトな"限界のために用いると書かれています。
+            つまりは、十分に大きな\( n \)に対して、\( f(n) \)は\( g(n) \)の定数倍以上かつ以下であることを示しており、
+            任意に2つの関数\(f(n)\)と\(g(n)\)を選んだ際に\(f(n) = \Theta(g(n))\)である必要十分条件は
+            \(f(n) = O(g(n))\)かつ\(f(n) = \Omega(g(n))\)であることになります。
+        </p>
+        <p>
+            これらの記法がわかると、なんとなくマスター定理の主張せんとするところが見えてきます。
+            最終的には漸化式に対して漸近解を与えたいというのがMaster定理な訳ですが、なんらかの場合分けの基準があって、
+            漸近的な挙動を分類しているということぐらいはこの時点で読み取れる気がします。
+            場合分けの時の基準となっている駆動関数と\(n^{log_ba}\)(: 分水界関数)についてそれぞれ見ていきます。
+        </p>
+        <h2>駆動関数</h2>
+        
+        <h2>分水界関数</h2>
     </article>
   </main>
   
