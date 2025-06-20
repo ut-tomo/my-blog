@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="3iZ0PCFwbOdy1LWlHA3A9nYmzBIZp8Qv12Dw2jHYOEU" />
+  <title>アルゴリズム系は苦手です(Heap編) - ブログを書いてモチベを上げよう</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <header>
+    <h1>ブログを書いてモチベを上げよう</h1>
+  </header>
+  
+  <div class="page-layout">
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="/">ホーム</a> > <a href="/programming">その他プログラミング/ 情報科学</a> > アルゴリズム系は苦手です(Heap編)
+    </div>
+    
+    <article>
+      <h1>アルゴリズム系は苦手です(Heap編)</h1>
+      <p> 2025年6月19日</p>
+      
+      <h2>概要</h2>
+      <p>
+        アルゴリズム関連の勉強が必要になったので。まずはHeap Sort編です。アルゴリズムって結構普及しているやつでも
+        僕には難解なものが多くて、こういうのを好きになれる人とは頭の出来が違うんじゃなかろうかと思ってしまうことが多いのですが。
+        勉強を対してせずにそういうことをぼやくのはダサいと思うのでとりあえず書き殴ることで勉強のモチベを保っていきたい。
+      </p>
+      <h2>とりあえず実装してみた</h2>
+        <p>
+            ヒープは授業だなんだで実装する機会はいくらでもあるんですが、空で書けるようにはなかなかなる気がしないんですよね。
+            なのでとりあえずまたn回目の実装をしてみました。毎度毎度違うものを参照して書いていますが、今回は
+            アルゴリズムイントロダクション第6章「優先度付きキュー」を参考にしています。
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <div class="code-content">
+            <code>
+              <pre>
+#include <iostream>
+#include <vector>
+
+class Heap {
+private:
+    std::vector<int> heap;
+    int heapsize;
+    int parent(int index) {
+        return (index - 1) / 2;
+    }
+
+    int leftChild(int index) {
+        return 2 * index + 1;
+    }
+
+    int rightChild(int index) {
+        return 2 * index + 2;
+    }
+
+public:
+    Heap(const std::vector<int>& input) {
+        heap = input;
+        heapsize = heap.size();
+    }
+
+    void maxHeapify(int i) {
+        int l = leftChild(i);
+        int r = rightChild(i);
+        int largest = i;
+
+        if (l < heapsize && heap[l] > heap[largest]) {
+            largest = l;
+        }
+
+        if (r < heapsize && heap[r] > heap[largest]) {
+            largest = r;
+        }
+
+        if (largest != i) {
+            std::swap(heap[i], heap[largest]);
+            maxHeapify(largest);
+        }
+    }
+
+    void buildMaxHeap() {
+        heapsize = heap.size();
+        for (int i = heapsize / 2 - 1; i >= 0; --i) {
+            maxHeapify(i);
+        }
+    }
+
+    void HeapSort() {
+        buildMaxHeap();
+        int n = heap.size();
+        for (int i=n-1; i >= 1; --i) {
+            std::swap(heap[1], heap[i]);
+            heapsize--;
+            maxHeapify(0);
+        }
+    }
+
+    int MaxHeapMaximum() const {
+        if (heap.size() > 0) {
+            return heap[0];
+        }
+        throw std::runtime_error("Heap is empty");
+    }
+
+    int MaxHeapExtractMax() {
+        int heapsize = heap.size();
+        int max = MaxHeapMaximum();
+        heap[0] = heap[heapsize - 1];
+        maxHeapify(0);
+        heapsize--;
+        heap.pop_back();
+        return max;
+    }
+
+    void MaxHeapIncreaseKey(int i, int key) {
+        if (key < heap[i]) {
+            throw std::runtime_error("New key is smaller than current key");
+        }
+        heap[i] = key;
+        while (i > 0 && heap[parent(i)] < heap[i]) {
+            std::swap(heap[i], heap[parent(i)]);
+            i = parent(i);
+        }
+    }
+
+    void MaxHeapInsert(int key, int n) {
+        if (heapsize >= n) {
+            throw std::runtime_error("Heap is full");
+        }
+        heap.push_back(INT_MIN); 
+        MaxHeapIncreaseKey(heapsize - 1, key);
+    }
+
+    void printHeap() const {
+        for (int val : heap) {
+            std::cout << val << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    const std::vector<int>& getHeap() const {
+        return heap;
+    }
+};
+            </pre>
+            </code>
+          </div>
+        </div>
+        <p>
+            
+    </article>
+  </main>
+  
+  <aside class="sidebar">
+    <h3>カテゴリ</h3>
+    <ul>
+      <li><a href="/papers" class="active">論文記録</a></li>
+      <li><a href="/ML">機械学習のお勉強</a></li>
+      <li><a href="/programming">その他プログラミング / 情報科学</a></li>
+      <li><a href="/biology">その他生物学関連</a></li>
+    </ul>
+  </aside>
+</div>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">
+  <span>☰</span>
+</button>
+
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+  
+  <footer>
+    <p>&copy; 2025 ブログを書いてモチベを上げよう. All rights reserved.</p>
+  </footer>
+
+  <script>
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+}
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block');
+  const codeContent = codeBlock.querySelector('.code-content code');
+  const text = codeContent.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('コピーに失敗しました:', err);
+    // フォールバック: 古いブラウザ対応
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
