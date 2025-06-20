@@ -478,3 +478,9 @@ code {
   padding: 0.5rem;
   border-radius: 4px;
 }
+
+
+.content-list {
+  margin-left: 50px; /* 左マージンを0に */
+  padding-left: 1em; /* 適度に番号に余白をつける */
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="3iZ0PCFwbOdy1LWlHA3A9nYmzBIZp8Qv12Dw2jHYOEU" />
+  <meta name="google-site-verification" content="XvlwfBHUtq90lfXKNDOILZLjLaf1W9QVEWswyW0iwco" />
+  <title>Master Theoremとかいうかっこいい定理 - ブログを書いてモチベを上げよう</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <header>
+    <h1>ブログを書いてモチベを上げよう</h1>
+  </header>
+  
+  <div class="page-layout">
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="/">ホーム</a> > <a href="/programming">機械学習のお勉強</a> > Master Theoremとかいうかっこいい定理
+    </div>
+    
+    <article>
+      <h1>Master Theoremとかいうかっこいい定理</h1>
+      <p> 2025年6月20日</p>
+      
+      <h2>概要</h2>
+      <p>
+        マスター法という定理の知識がどうやら必要になったので、自分で使いこなせる状態を目指してとりあえずまとめてみようと思います。
+        どうやらマスター法の説明をしている日本語の文献はあんまりないようで(そんなに調べたわけではないのですが)とりあえず
+        手元のアルゴリズムイントロダクションを基本的に参照してまとめていきます。
+      </p>
+      <h2>マスター定理の主張</h2>
+      <p>\( n \in \mathbb{N}, \)上で以下のように定義される漸化式について考える。</p>
+        <p>
+            \[
+            T(n) = aT\left(\frac{n}{b}\right) + f(n)
+            \]
+            ただし、\( a \geq 0, b > 1, f(n) \)は十分に大きい全ての実数上で定義されている非負の駆動関数(これについては後で書きます)とする。
+            この時\( T(n) \)の漸近的な挙動は以下のように分類される。
+            <ol class="content-list">
+                <li>
+                    <p>\(if \quad f(n) = O(n^{log_ba-\epsilon}) \quad for \, all \quad \epsilon > 0 \implies T(n) = \Theta(n^{log_ba})\)</p>
+                </li>
+                <li>
+                    <p>\(if \quad f(n) = \Theta(n^{log_balg^kn}) \quad for \, some \quad k \geq 0 \implies T(n) = \Theta(n^{log_ba}log^{k+1}n)\)</p>
+                </li>
+                <li>
+                    <p>\(if \quad f(n) = \Omega(n^{log_ba+\epsilon}) \quad for \, some \quad \epsilon > 0 \quad \)<br>
+                        \(and \quad af\left(\frac{n}{b}\right) \leq cf(n) \quad for \, some \quad c < 1,\implies T(n) = \Theta(f(n)) \)
+                    </p>
+            </ol>
+        </p>
+        <p>
+            これだけみるとうーんと唸るしかないですよね。ちなみに明記していませんでしたが\(n\)は基本的に十分に大きな数
+            について考えています。小さいnについて考えても計算料の見積もりとなるとあまり意味がないので。
+        </p>
+    </article>
+  </main>
+  
+  <aside class="sidebar">
+    <h3>カテゴリ</h3>
+    <ul>
+      <li><a href="/papers" class="active">論文記録</a></li>
+      <li><a href="/ML">機械学習のお勉強</a></li>
+      <li><a href="/programming">その他プログラミング / 情報科学</a></li>
+      <li><a href="/biology">その他生物学関連</a></li>
+    </ul>
+  </aside>
+</div>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">
+  <span>☰</span>
+</button>
+
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+  
+  <footer>
+    <p>&copy; 2025 ブログを書いてモチベを上げよう. All rights reserved.</p>
+  </footer>
+
+  <script>
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+}
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block');
+  const codeContent = codeBlock.querySelector('.code-content code');
+  const text = codeContent.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('コピーに失敗しました:', err);
+    // フォールバック: 古いブラウザ対応
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
