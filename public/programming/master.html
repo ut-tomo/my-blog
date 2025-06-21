@@ -43,13 +43,13 @@
             この時\( T(n) \)の漸近的な挙動は以下のように分類される。
             <ol class="content-list">
                 <li>
-                    <p>\(if \quad f(n) = O(n^{log_ba-\epsilon}) \quad for \, all \quad \epsilon > 0 \implies T(n) = \Theta(n^{log_ba})\)</p>
+                    <p>\(if \quad f(n) = O(n^{\log_ba-\epsilon}) \quad for \, all \quad \epsilon > 0 \implies T(n) = \Theta(n^{\log_ba})\)</p>
                 </li>
                 <li>
-                    <p>\(if \quad f(n) = \Theta(n^{log_balg^kn}) \quad for \, some \quad k \geq 0 \implies T(n) = \Theta(n^{log_ba}lg^{k+1}n)\)</p>
+                    <p>\(if \quad f(n) = \Theta(n^{\log_balg^kn}) \quad for \, some \quad k \geq 0 \implies T(n) = \Theta(n^{\log_ba}lg^{k+1}n)\)</p>
                 </li>
                 <li>
-                    <p>\(if \quad f(n) = \Omega(n^{log_ba+\epsilon}) \quad for \, some \quad \epsilon > 0 \quad \)<br>
+                    <p>\(if \quad f(n) = \Omega(n^{\log_ba+\epsilon}) \quad for \, some \quad \epsilon > 0 \quad \)<br>
                         \(and \quad af\left(\frac{n}{b}\right) \leq cf(n) \quad for \, some \quad c < 1,\implies T(n) = \Theta(f(n)) \)
                     </p>
             </ol>
@@ -89,21 +89,60 @@
             これらの記法がわかると、なんとなくマスター定理の主張せんとするところが見えてきます。
             最終的には漸化式に対して漸近解を与えたいというのがMaster定理な訳ですが、なんらかの場合分けの基準があって、
             漸近的な挙動を分類しているということぐらいはこの時点で読み取れる気がします。
-            場合分けの時の基準となっている駆動関数と\(n^{log_ba}\)(: 分水界関数)についてそれぞれ見ていきます。
+            
         </p>
-        <h2>駆動関数</h2>
-        
-        <h2>分水界関数</h2>
+        <h2>まずはもう一度漸化式をよくみる</h2>
+        <p>
+            さて、マスター定理の漸化式をもう一度よく見てみましょう。
+            \[
+            T(n) = aT\left(\frac{n}{b}\right) + f(n)
+            \]
+            この式をが見積もろうとしているものは、サイズ\(n\)の問題をサイズ\(n/b\)を持つ\(a\)個のサブ問題
+            に分割することによるアルゴリズムの計算コストです。つまりこのアルゴリズムは
+            \(a\)個の部分問題をそれぞれ\(T(n/b)\)の時間で再帰的に解くものであり、
+            \(f(n)\)は再帰の外で発生する計算時間、つまり問題の分割や結合に要するコストを表しているものとなります。
+            そして、部分問題を解くのにかかるコストと再帰以外のコストを天秤にかけて、
+            支配的な方のコストが全体の計算コストを決めるというのが基本的なアイデアです。
+            ちなみに、\(f(n)\)が駆動関数と呼ばれるのはこの部分がアルゴリズム全体のコストを決めうるから、ということだそうですが、
+            それなら両方ともそうじゃないか。
+        </p>
+        <h2>主張の気持ちだけでも理解する</h2>
+        <p>
+            マスター定理では、駆動関数が\(n^{\log_ba}\)より支配的か否かによる場合わけがまずなされています。
+            ちなみにこの\(n^{\log_ba}\)は分水界関数と呼ぶようです。こいつがまずどこから来たのかを考えたいですね。
+        </p>
+        <p>
+            まず、再帰呼び出し1回あたり\(a\)個の部分問題が生成され、それぞれのサイズは再帰呼び出しが\(i\)回目の時は
+            \(\frac{n}{b^i}\)となります。この時再帰呼び出しは問題サイズが定数になるまで続くと考えれば
+            再帰の深さは\(\approx \log_b n\)となります。
+        </p>
+        <p>
+            つまり再帰的に呼び出すことによるノード数は
+            \[
+            \sum_{i=0}^{\log_b n} a^i \approx \frac{a^{\log_b n} - 1}{a - 1} \approx a^{\log_bn}
+            \]
+            \[
+            a^{\log_bn} = e^{\log a \frac{\log n}{\log b}} = n^{\log_b a}
+            \]
+        </p>
+        <p>
+            となります。ノード数と書いたのは、再帰的に呼び出すことにより1つの親ノードから\(a\)個の子ノードが生成されるような
+            木構造を想像するとわかりやすいと思ったからです。というわけで局所的な処理を一切考えなければ再帰的な
+            呼び出しによる計算コストは\(n^{\log_b a}\)となることがわかり、分水界関数と呼んでいるものが得られたことになります。
+            これくらいのことがわかればマスター方を覚えることくらいはできそうなので、問題を解く時に使えと言われればできそうではありますが、
+            流石にまだモヤモヤする部分が残り過ぎているのでもう少し丁寧にそれぞれのケースについて考えます。
+        </p>
+        <h2>Case 1</h2>
     </article>
   </main>
   
   <aside class="sidebar">
     <h3>カテゴリ</h3>
     <ul>
-      <li><a href="/papers" class="active">論文記録</a></li>
+      <li><a href="/papers" >論文記録</a></li>
       <li><a href="/ML">機械学習のお勉強</a></li>
-      <li><a href="/programming">その他プログラミング / 情報科学</a></li>
-      <li><a href="/biology">その他生物学関連</a></li>
+      <li><a href="/programming" class="active">その他プログラミング / 情報科学</a></li>
+      <li><a href="/bio\logy">その他生物学関連</a></li>
     </ul>
   </aside>
 </div>
