@@ -484,3 +484,30 @@ code {
   margin-left: 50px; /* 左マージンを0に */
   padding-left: 1em; /* 適度に番号に余白をつける */
 }
+
+/* 通常は改行させない */
+.br-sp {
+  display: none;
+}
+
+/* 画面幅が768px以下（スマホなど）なら改行させる */
+@media screen and (max-width: 768px) {
+  .br-sp {
+    display: inline;
+  }
+}
+
+/* デフォルトの画像サイズ（PCなど大きな画面） */
+.responsive-img {
+  width: 600px; /* お好みで */
+  height: auto;
+}
+
+/* スマホ（画面幅768px以下）のときは画像を小さくする */
+@media screen and (max-width: 768px) {
+  .responsive-img {
+    width: 100%; /* または 300px など */
+    max-width: 100%;
+    height: auto;
+  }
+}
