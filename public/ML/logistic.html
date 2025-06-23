@@ -47,7 +47,7 @@
         ロジスティック回帰モデルとは二値分類のためのモデルであり、具体的には以下のようなことを行なっています:
       </p>
       
-      \[
+      <div class="math-scroll">\[
       \hat{y} = 
         \begin{cases}
         1 & (\sigma(\boldsymbol{\theta}^T \mathbf{x}) \lt 0.5)\\
@@ -57,7 +57,7 @@
       <p>
         この\(\sigma(\cdot)\)はシグモイド関数と呼ばれるもので、以下のように定義されるものです。またグラフの形状が大事なので図も以下に載せます(Google Colabによる描画)
       </p>
-        \[
+        <div class="math-scroll">\[
         \sigma(x) = \frac{1}{1 + e^{-x}}
         \]
     <div style="text-align: center;">
@@ -70,10 +70,10 @@
         そこで、以下のように逆関数を考えてみます。表記を楽にしたいので\(\boldsymbol{\theta}^T \mathbf{x} = t\)と書きます。またシグモイド関数の
         出力は\(\hat{p}\)と書きますが、これは「正クラスに属する確率」を表していると考えることができるという慣習によるものでしょう。
     </p>
-    \[
+    <div class="math-scroll">\[
     \hat{p} = \frac{1}{1 + e^{-t}} = \frac{e^{t}}{e^{t} + 1}
     \]
-    \[
+    <div class="math-scroll">\[
     e^{t} = \frac{\hat{p}}{1 - \hat{p}} \implies t = \log\left(\frac{\hat{p}}{1 - \hat{p}}\right)
     \]
     <p>
@@ -81,7 +81,7 @@
         先ほど述べたように\(\hat{p}\)は正クラスに属する確率を表していると考えれば\(1 - \hat{p}\)は負クラスに属する確率を表していることになりますから、
         このロジットは正クラス負クラスに属する可能性の比率の対数をとったものということで対数オッズとも呼ばれます。そしてこのロジットは先ほど\(t\)と表したものですから、
     </p>
-    \[
+    <div class="math-scroll">\[
     logit(\hat{p}) = \boldsymbol{\theta}^T \mathbf{x} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_n x_n
     \]
     <p>
@@ -98,8 +98,8 @@
         ぱっと見は複雑ですが納得できます。
     </p>
     <p>
-    \[
-    J(\boldsymbol{\theta}) = -\frac{1}{m} \sum_{i=1}^{m} \left( y^{(i)} \log(\hat{p}^{(i)}) <br class="br-sp">+ (1 - y^{(i)}) \log(1 - \hat{p}^{(i)}) \right)
+    <div class="math-scroll">\[
+    J(\boldsymbol{\theta}) = -\frac{1}{m} \sum_{i=1}^{m} \left( y^{(i)} \log(\hat{p}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{p}^{(i)}) \right)
     \]
     </p>
     <p>

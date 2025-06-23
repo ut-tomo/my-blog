@@ -89,13 +89,13 @@
         まず画像には各領域にベクトル\( \mathbf{z}_i\)が特徴として対応していて、問が\( q \)というQueryベクトルとして表現できるとします。
         この時にある関数\(r\)を用いて
       </p>
-      \[
+      <div class="math-scroll">\[
         r_i = r(\mathbf{z}_i, q)
       \]
       <p>
         というものを定義し、それを正規化します。
 
-      \[
+      <div class="math-scroll">\[
         a_i = softmax(r_i) = \frac{e^{r_i}}{\sum_{j} e^{r_j}}
       \]
       <p>

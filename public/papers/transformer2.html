@@ -74,14 +74,14 @@
       <p>
         前回記事では重みの元となるものの計算方法は以下のように示していました。
       </p>
-      \[
+      <div class="math-scroll">\[
         r_i = r(\mathbf{z}_i, q)
       \]
       <p>
         これをsoftmaxにより正規化したものにより重み付けされるのでした。このTransformerモデルでは、"Scaled Dot-Product Attention"と呼ばれる
         Attentionの計算方法が(上式の関数rの部分で)用いられています。その式を以下に示します。
       </p>
-      \[
+      <div class="math-scroll">\[
         \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
         \]
       <p>
@@ -96,7 +96,7 @@
         この論文の中では明示的に書かれてはいないのですが、\(Q\), \(K\), \(V\)はそれぞれ以下のように別々の重みベクトルにより入力配列\(X\)から
         以下のように変換されています。このような、自分自身同士でその関係性の計算を行うものを"Self-Attention(自己注意)"と呼びます。
       </p>
-      \[
+      <div class="math-scroll">\[
         Q = XW_Q, \quad K = XW_K, \quad V = XW_V
       \]
       <p>
@@ -136,7 +136,7 @@
       </p>
       <div class="math-scroll">
       <p>
-      \[
+      <div class="math-scroll">\[
         \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W_O
         \]
       </p>
