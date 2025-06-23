@@ -504,7 +504,7 @@ code {
 }
 
 /* スマホ（画面幅768px以下）のときは画像を小さくする */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .responsive-img {
     width: 100%; /* または 300px など */
     max-width: 100%;
