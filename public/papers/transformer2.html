@@ -76,14 +76,14 @@
       </p>
       <div class="math-scroll">\[
         r_i = r(\mathbf{z}_i, q)
-      \]
+      \]</div>
       <p>
         これをsoftmaxにより正規化したものにより重み付けされるのでした。このTransformerモデルでは、"Scaled Dot-Product Attention"と呼ばれる
         Attentionの計算方法が(上式の関数rの部分で)用いられています。その式を以下に示します。
       </p>
       <div class="math-scroll">\[
         \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-        \]
+        \]</div>
       <p>
         このを改めて日本語で説明すると、\(Q(Query)\)、\(K(Key)\)の(スケールされた)内積を計算しsoftmaxにより正規化したものにより
         \(V(Value)\)を重み付けしている、ということです。ただし\(\sqrt{d_k}\)は\(Key\)ベクトルの次元数を表しています。
@@ -98,7 +98,7 @@
       </p>
       <div class="math-scroll">\[
         Q = XW_Q, \quad K = XW_K, \quad V = XW_V
-      \]
+      \]</div>
       <p>
         ここで\(W_Q\), \(W_K\), \(W_V\)はそれぞれ\(Query\), \(Key\), \(Value\)の重み行列です。この重み行列が学習可能パラメータというわけです。
         Attentionの計算そのものは全て行列計算によって行われるのでその部分に学習の余地はないのですが、そこに入力するベクトルに学習可能パラメタをのっけている
@@ -138,7 +138,7 @@
       <p>
       <div class="math-scroll">\[
         \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W_O
-        \]
+        \]</div>
       </p>
       </div>
         <p>

@@ -37,17 +37,17 @@
             一般的な問題設定に倣って\(\mathbf{x}\)と\(y\)をそれぞれ特徴量と目的変数とします。そして、\(\hat{y}\)を予測値とすると、
             線形回帰モデルは以下のように書き表されます。
         </p>
-        \[
+        <div class="math-scroll">\[
             \hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_n x_n =  \boldsymbol{\theta}^T\mathbf{x}
-        \]
+        \]</div>
         <p>
             そしてこの予測値と実際の目的変数の誤差が小さければ小さいほど嬉しいというモデルです。この発想から
             このモデルのMSE(Mean Square Error)損失関数は自然と以下のように与えられます。
         </p>
         <p>
-        \[
+        <div class="math-scroll">\[
             MSE(\mathbf{X}, h_{\theta}) = \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - h_{\theta}(\mathbf{x}^{(i)}))^2 <br class="br-sp">= \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - \boldsymbol{\theta}^T\mathbf{x}^{(i)})^2
-        \]
+        \]</div>
         </p>
         <p>
             急に\(\mathbf{X}\)と\(h_{\theta}\)というものを書いてしまいましたが、\(\mathbf{X}\)は訓練データセット、\(h_{\theta}\)は線形回帰仮説です。
@@ -57,7 +57,7 @@
             先ほどの損失関数は以下のように行列で定式化できます。
         </p>
         <p>
-        \[
+        <div class="math-scroll">\[
         X = \begin{bmatrix}
             1 & x_1^{(1)} & x_2^{(1)} & \ldots & x_n^{(1)} \\
             1 & x_1^{(2)} & x_2^{(2)} & \ldots & x_n^{(2)} \\
@@ -77,38 +77,38 @@
             \vdots \\ 
             \theta_n
         \end{bmatrix}
-        \]
-        \[
+        \]</div>
+        <div class="math-scroll">\[
             MSE(X, h_{\theta}) = \frac{1}{m} ||X\theta - y||^2
-        \]
+        \]</div>
         </p>
         <p>
             この時、\(\mathbf{X}^T\mathbf{X}\)が正則行列であれば、以下のようにして\(\theta\)を求めることができると知られており、
             これを正規方程式と呼びます。
         </p>
-        \[
+        <div class="math-scroll">\[
             \theta = (X^TX)^{-1}X^Ty
-        \]
+        \]</div>
         <div class="pale-background">
             <p>
                 証明:   
             </p>
             <p>
-            \[
+            <div class="math-scroll">\[
             ||X\theta - y||^2 = (X\theta - y)^T(X\theta - y) = <br class="br-sp">\theta^TX^TX\theta - 2y^TX\theta + y^Ty
-            \]
+            \]</div>
             ここで\(\mathbf{X}\)について微分します。
-            \[
+            <div class="math-scroll">\[
             \frac{\partial}{\partial \theta} ||X\theta - y||^2 = 2X^TX\theta - 2X^Ty
-            \]
+            \]</div>
             </p>
             <p>
                 これを0にすると、\(mathbf{X}^T\mathbf{X}\)正則行列のもとで以下のようになります。
             </p>
             <p>
-            \[
+            <div class="math-scroll">\[
             2X^TX\theta - 2X^Ty = 0 \implies X^TX\theta <br class="br-sp">= X^Ty \implies \theta = (X^TX)^{-1}X^Ty
-            \]
+            \]</div>
             </p>
             </div>
         <p>
