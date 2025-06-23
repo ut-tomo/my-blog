@@ -53,13 +53,13 @@
         1 & (\sigma(\boldsymbol{\theta}^T \mathbf{x}) \lt 0.5)\\
         0 & (\sigma(\boldsymbol{\theta}^T \mathbf{x}) \geq 0.5)
         \end{cases} &ensp;\cdots(1)
-      \]
+      \]</div>
       <p>
         この\(\sigma(\cdot)\)はシグモイド関数と呼ばれるもので、以下のように定義されるものです。またグラフの形状が大事なので図も以下に載せます(Google Colabによる描画)
       </p>
         <div class="math-scroll">\[
         \sigma(x) = \frac{1}{1 + e^{-x}}
-        \]
+        \]</div>
     <div style="text-align: center;">
       <img src="../image/sigmoid.png" class="responsive-img" alt="シグモイド関数のグラフ" style="width: 600px; height: auto;">
     </div>
@@ -72,10 +72,10 @@
     </p>
     <div class="math-scroll">\[
     \hat{p} = \frac{1}{1 + e^{-t}} = \frac{e^{t}}{e^{t} + 1}
-    \]
+    \]</div>
     <div class="math-scroll">\[
     e^{t} = \frac{\hat{p}}{1 - \hat{p}} \implies t = \log\left(\frac{\hat{p}}{1 - \hat{p}}\right)
-    \]
+    \]</div>
     <p>
         さて、ここで登場してきた\(\log\left(\frac{\hat{p}}{1 - \hat{p}}\right)\)ですが、これはロジットと呼ばれるものです。
         先ほど述べたように\(\hat{p}\)は正クラスに属する確率を表していると考えれば\(1 - \hat{p}\)は負クラスに属する確率を表していることになりますから、
@@ -83,7 +83,7 @@
     </p>
     <div class="math-scroll">\[
     logit(\hat{p}) = \boldsymbol{\theta}^T \mathbf{x} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_n x_n
-    \]
+    \]</div>
     <p>
         となるわけです。なんだか線形回帰モデルのような見た目になりました。<br>
         線形回帰モデルはこの記事に少し書いています: <a href="/ML/LinearRegression.html">線形回帰を再考する</a>。
@@ -100,7 +100,7 @@
     <p>
     <div class="math-scroll">\[
     J(\boldsymbol{\theta}) = -\frac{1}{m} \sum_{i=1}^{m} \left( y^{(i)} \log(\hat{p}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{p}^{(i)}) \right)
-    \]
+    \]</div>
     </p>
     <p>
         例えば正解ラベル\( y^{(i)} = 1 \)の時には\(\hat{p}\)が1に近いほど嬉しくで、0に近いなら大きなコストを上げたいです。
