@@ -491,7 +491,7 @@ code {
 }
 
 /* 画面幅が768px以下（スマホなど）なら改行させる */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .br-sp {
     display: inline;
   }
