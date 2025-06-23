@@ -61,7 +61,7 @@
         \sigma(x) = \frac{1}{1 + e^{-x}}
         \]
     <div style="text-align: center;">
-      <img src="../image/sigmoid.png" alt="シグモイド関数のグラフ" style="width: 600px; height: auto;">
+      <img src="../image/sigmoid.png" class="responsive-img" alt="シグモイド関数のグラフ" style="width: 600px; height: auto;">
     </div>
 
     <p>
@@ -97,9 +97,11 @@
         陽性インスタンスに対して0に近い数を, 陰性インスタンスに対して1に近い数を予測してしまった時に損失が大きくなってほしいという発想に基づくと思えば(式1がなるべく正解ラベルと一致して欲しいので)
         ぱっと見は複雑ですが納得できます。
     </p>
+    <p>
     \[
-    J(\boldsymbol{\theta}) = -\frac{1}{m} \sum_{i=1}^{m} \left( y^{(i)} \log(\hat{p}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{p}^{(i)}) \right)
+    J(\boldsymbol{\theta}) = -\frac{1}{m} \sum_{i=1}^{m} \left( y^{(i)} \log(\hat{p}^{(i)}) <br class="br-sp">+ (1 - y^{(i)}) \log(1 - \hat{p}^{(i)}) \right)
     \]
+    </p>
     <p>
         例えば正解ラベル\( y^{(i)} = 1 \)の時には\(\hat{p}\)が1に近いほど嬉しくで、0に近いなら大きなコストを上げたいです。
         正解ラベルが1なら損失関数の\(1 - y^{(i)}\)の部分はキャンセルされるので寄与しているのは
