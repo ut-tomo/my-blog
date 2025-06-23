@@ -517,6 +517,6 @@ code {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch; /* iOSでのスムーズスクロール */
   padding: 0.5em;
-  background-color: #f9f9f9; /* 任意の背景 */
+  background-color:transparent; /* 任意の背景 */
   border: 1px solid #ccc;     /* 任意の枠線 */
 }
