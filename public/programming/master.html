@@ -36,7 +36,7 @@
       <h2>マスター定理の主張</h2>
       <p>\( n \in \mathbb{N}, \)上で以下のように定義される漸化式について考える。</p>
         <p>
-            \[
+            <div class="math-scroll">\[
             T(n) = aT\left(\frac{n}{b}\right) + f(n)
             \]
             ただし、\( a \geq 0, b > 1, f(n) \)は十分に大きい全ての実数上で定義されている非負の駆動関数(これについては後で書きます)とする。
@@ -68,13 +68,13 @@
         <div style="margin: 20px;"></div>
         <h3>\(\Omega\)記法</h3>
         <p>
-            \[
+            <div class="math-scroll">\[
             f(n) \in \Omega(g(n)) \Leftrightarrow \exists c > 0, n_0 \in \mathbb{N} \quad s.t. \quad f(n) \geq cg(n) \geq 0 \quad for \, all \quad n \geq n_0
             \]
         </p>
         <h3>\(\Theta \)記法</h3>
         <p>
-            \[
+            <div class="math-scroll">\[
             f(n) \in \Theta(g(n)) \Leftrightarrow \exists c_1, c_2 > 0, n_0 \in \mathbb{N} \quad s.t. \quad c_1g(n) \leq f(n) \leq c_2g(n) \quad for \, all \quad n \geq n_0
             \]
         </p>
@@ -96,7 +96,7 @@
         <h2>まずはもう一度漸化式をよくみる</h2>
         <p>
             さて、マスター定理の漸化式をもう一度よく見てみましょう。
-            \[
+            <div class="math-scroll">\[
             T(n) = aT\left(\frac{n}{b}\right) + f(n)
             \]
             この式をが見積もろうとしているものは、サイズ\(n\)の問題をサイズ\(n/b\)を持つ\(a\)個のサブ問題
@@ -120,10 +120,10 @@
         </p>
         <p>
             つまり再帰的に呼び出すことによるノード数は
-            \[
+            <div class="math-scroll">\[
             \sum_{i=0}^{\log_b n} a^i \approx \frac{a^{\log_b n} - 1}{a - 1} \approx a^{\log_bn}
             \]
-            \[
+            <div class="math-scroll">\[
             a^{\log_bn} = e^{\log a \frac{\log n}{\log b}} = n^{\log_b a}
             \]
         </p>
@@ -139,12 +139,12 @@
             Case 1での要求は、「<span class="red-underline">分水界関数が駆動関数よりも"多項式的に"速く漸近的に増加してほしい</span>」というものです。
             つまり、ただ分水界関数の方が速けりゃいいというわけではないのです。
             それは以下のことが保証されていてほしいからになります。
-            \[
+            <div class="math-scroll">\[
             \frac{f(n)}{n^{\log_b a}} \to 0 \quad as \quad n \to \infty
             \]
             要は\(n\)が十分に大きくなった時に駆動関数の寄与は無視できますよという状況が望ましいということで、これは
             \(f(n) = O(n^{\log_b a - \epsilon})\)であれば
-            \[
+            <div class="math-scroll">\[
             \frac{f(n)}{n^{\log_b a}} = O\left(\frac{1}{n^{\epsilon}}\right) \to 0 \quad as \quad n \to \infty
             \]
             となるので多項式的に遅ければ満たしてくれることはわかります。
@@ -169,20 +169,20 @@
         <div style="margin: 20px;"></div>
         <p>
             レベル\(i\)のノード数は\(a^i\)であり、各ノードの計算コストは以下のようになります。
-            \[
+            <div class="math-scroll">\[
             T_i = a^i \cdot f\left(\frac{n}{b^i}\right) = a^i \cdot \Theta\left(\left(\frac{n}{b^i}\right)^{\log_b a} \lg^k\left(\frac{n}{b^i}\right)\right)
             \]
             ここで、\(a^i = b^{i\log_ba}\)ですから、
-            \[
+            <div class="math-scroll">\[
             T_i = \Theta\left(n^{\log_b a} \cdot \lg^k\left(\frac{n}{b^i}\right)\right) = \Theta\left(n^{\log_b a} \cdot (\lg n - i \lg b)^k \right)
             \]
             となって、木の深さ\(\log_b n\)から全体の計算コストは
-            \[
+            <div class="math-scroll">\[
             T(n) = \sum_{i=0}^{\log_b n} T_i = \sum_{i=0}^{\log_b n} \Theta\left(n^{\log_b a} \cdot (\lg n - i \lg b)^k \right)
             \]
             つまり、各階層の計算コストは平均的に\(\Theta(n^{\log_b a} \cdot (\lg n - C)^k) = \Theta(n^{\log_b a} \cdot \lg^k n)\)となり(C: const.)、
             木の深さ\(\log_b n\)にわたってこの計算コストが繰り返されるので、最終的な計算コストは
-            \[
+            <div class="math-scroll">\[
             T(n) = \Theta(n^{\log_b a} \cdot \lg^{k+1} n)
             \]
             となるという形です。
@@ -205,7 +205,7 @@
             このため、Case 3 ではさらに「正則条件（regularity condition）」という技術的な条件を課しています。
             これは次のように表されます：
 
-            \[
+            <div class="math-scroll">\[
             \exists c < 1,\ \exists n_0\ \text{such that} \quad a f(n/b) \leq c f(n) \quad \text{for all } n \geq n_0
             \]
 
@@ -238,7 +238,7 @@
             Case 2 では、駆動関数が分水界関数と同じオーダー（例えば \( f(n) = \Theta(n^{\log_b a} \log^k n) \)）であるときの振る舞いを扱います。
             このとき再帰木の各レベルのコストは、すべてほぼ同じオーダーになります。
             木の高さは \( \log_b n \) なので、全体としては \( \log n \) レベルぶんのコストが加算され、結果として
-            \[
+            <div class="math-scroll">\[
             T(n) = \Theta(n^{\log_b a} \log^{k+1} n)
             \]
             のように \( \log^{k+1} n \) が現れます。
@@ -246,12 +246,12 @@
             Case 3 では、駆動関数が分水界関数よりも多項式的に大きいと仮定します。
             ここでは再帰木の根（最上層）のコストが最も支配的であり、下層へ行くほど再帰による影響は急速に減衰していきます。
             この「上から下へ指数的に弱まっていく」構造が成立するためには、正則条件（regularity condition）：
-            \[
+            <div class="math-scroll">\[
             \exists c < 1,\ \exists n_0\ \text{such that } a f(n/b) \leq c f(n)
             \]
             が必要になります。
             この条件により、再帰呼び出しが駆動関数に吸収され、全体として
-            \[
+            <div class="math-scroll">\[
             T(n) = \Theta(f(n))
             \]
             と結論づけられるのです。
