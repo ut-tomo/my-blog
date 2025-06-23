@@ -41,6 +41,7 @@
             \]
             ただし、\( a \geq 0, b > 1, f(n) \)は十分に大きい全ての実数上で定義されている非負の駆動関数(これについては後で書きます)とする。
             この時\( T(n) \)の漸近的な挙動は以下のように分類される。
+            <div class="math-scroll">
             <ol class="content-list">
                 <li>
                     <p>\(if \quad f(n) = O(n^{\log_ba-\epsilon}) \quad for \, some \quad \epsilon > 0 \implies T(n) = \Theta(n^{\log_ba})\)</p>
@@ -53,6 +54,7 @@
                         \(and \quad af\left(\frac{n}{b}\right) \leq cf(n) \quad for \, some \quad c < 1,\implies T(n) = \Theta(f(n)) \)
                     </p>
             </ol>
+            </div>
         </p>
         <p>
             これだけみるとうーんと唸るしかないですよね。ちなみに明記していませんでしたが\(n\)は基本的に十分に大きな数
