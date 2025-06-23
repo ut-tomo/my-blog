@@ -45,7 +45,7 @@
             このモデルのMSE(Mean Square Error)損失関数は自然と以下のように与えられます。
         </p>
         \[
-            MSE(\mathbf{X}, h_{\theta}) = \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - h_{\theta}(\mathbf{x}^{(i)}))^2 = \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - \boldsymbol{\theta}^T\mathbf{x}^{(i)})^2
+            MSE(\mathbf{X}, h_{\theta}) = \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - h_{\theta}(\mathbf{x}^{(i)}))^2 <br class="br-sp">= \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - \boldsymbol{\theta}^T\mathbf{x}^{(i)})^2
         \]
         <p>
             急に\(\mathbf{X}\)と\(h_{\theta}\)というものを書いてしまいましたが、\(\mathbf{X}\)は訓練データセット、\(h_{\theta}\)は線形回帰仮説です。
@@ -61,6 +61,7 @@
             1 & x_1^{(2)} & x_2^{(2)} & \ldots & x_n^{(2)} \\
             \vdots & \vdots & \vdots & \ddots & \vdots \\
             1 & x_1^{(m)} & x_2^{(m)} & \ldots & x_n^{(m)}
+        <br class="br-sp">
         \end{bmatrix}, \quad
         y = \begin{bmatrix}
             y^{(1)} \\
@@ -100,7 +101,7 @@
                 これを0にすると、\(mathbf{X}^T\mathbf{X}\)正則行列のもとで以下のようになります。
             </p>
             \[
-            2X^TX\theta - 2X^Ty = 0 \implies X^TX\theta = X^Ty \implies \theta = (X^TX)^{-1}X^Ty
+            2X^TX\theta - 2X^Ty = 0 \implies X^TX\theta <br class="br-sp">= X^Ty \implies \theta = (X^TX)^{-1}X^Ty
             \]
             </div>
         <p>
