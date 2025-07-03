@@ -520,3 +520,38 @@ code {
   background-color:transparent; /* 任意の背景 */
   border: 1px solid #ccc;     /* 任意の枠線 */
 }
+
+
+
+ul.graph-tree,
+ul.graph-subtree {
+  list-style-type: none;
+  padding-left: 1em;
+  margin-left: 0;
+}
+
+ul.graph-subtree > li::before {
+  list-style-type: none;
+  padding-left: 1em;
+  margin-left: 0;
+  content: "▶ ";
+  display: inline-block;
+  margin-right: 0.5em;
+  color: #555;
+}
+
+
+.graph-tree > .graph-item {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.graph-subtree .graph-item {
+  margin: 0.3em 0;
+  font-weight: normal;
+}
+
+.graph-leaf {
+  margin: 0.2em 0 0.2em 1em;
+  font-weight: normal;
+}
