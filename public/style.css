@@ -518,7 +518,7 @@ code {
   -webkit-overflow-scrolling: touch; /* iOSでのスムーズスクロール */
   padding: 0.5em;
   background-color:transparent; /* 任意の背景 */
-  border: 1px solid #ccc;     /* 任意の枠線 */
+
 }
 
 
