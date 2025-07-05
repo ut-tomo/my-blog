@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="3iZ0PCFwbOdy1LWlHA3A9nYmzBIZp8Qv12Dw2jHYOEU" />
+  <meta name="google-site-verification" content="XvlwfBHUtq90lfXKNDOILZLjLaf1W9QVEWswyW0iwco" />
+  <title>CNNをちゃんとまとめたい - utcbBlog 勉強したことをまとめていくブログ</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <header>
+    <h1>utcbBlog 勉強したことをまとめていくブログ</h1>
+  </header>
+  
+  <div class="page-layout">
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="/">ホーム</a> > <a href="/ML">機械学習のお勉強</a> > CNNをちゃんとまとめたい
+    </div>
+    
+    <article>
+      <h1>CNNをちゃんとまとめたい</h1>
+      <p> 2025年7月5日</p>
+      
+      <h2>概要</h2>
+      <p>
+        CNN(畳み込み=Convolutional ニューラルネットワーク)は画像処理の分野なんかでは今でもスタメン級の仕組みで、結構どの深層学習系の参考書でも基本的な仕組みとして紹介されがちですがやはり色々工夫がされているものだなあと。
+        世の中には色々なモデルがあるのでどれもバッチリ理解しようと思うと(一応基礎教養的なレベルのモデルは記事にしたいとは思ってますが)
+        時間も脳のメモリも足りなそうだと感じてしまいます。
+        機械学習 / 深層学習系の界隈に長くいると既存のモデルからの差分で新しいモデルはすっと理解できがちなようなのですが、ひよっこからすると
+        勉強しないといけないことがめちゃめちゃ多く見えてしまってどうも参ってしまいます...
+      </p>
+      <p>
+        以下では大抵Oreillyの「ゼロから作るDeep Learning」およびMLPシリーズの「深層学習」を参考にしています。
+      </p>
+      
+      <h2>
+        CNNはどこが一味違うのか
+      </h2>
+      <p>
+        CNNはいわゆる順伝播型NNに分類されるモデルですが、では全結合型のNNとは何が違うのでしょうか。
+        図で表すと以下のような感じです。
+      </p>
+      <img src="../image/fnnimg.png" alt="CNN vs nnn" class="responsive-img">
+      <p>
+        (i)が全結合層を表していて、(ii)が畳み込み層(とプーリング層というもの)を簡略化して表したものとなります。
+        左側の図は矢印が多くてもしかしたらちょっと引き忘れているかもしれませんが。
+        この図を見ると全結合というものは入力の情報全部がそれぞれのユニットに伝わっていて、それに対して畳み込み層は
+        入力の情報の一部だけが各ユニットに伝わっているんだなあということがわかります。
+      </p>
+      <p>
+        この仕組みの嬉しさは、構造的な情報を保持しておけるという点にあります。
+        グレースケールの(1チャンネルの)縦28px, 横28pxの画像を全結合層に投げようと思うと、
+        元の画像は(1, 28, 28)という形ですがそれを一列に並べた784個のデータを渡すことになります。
+        この時点で元の画像の「どの部分に」どのような情報が載っていたのかという情報は失われてしまうことになります。
+      </p>
+      <p>
+        それに対してCNNはフィルタというものを使うことで入力を一部分ずつ処理していく(実装的には同時に行列計算されますが)ことができるので、
+        情報の位置関係的な情報を一定保持しておけるわけです。
+      </p>
+      <p>
+        CNNといえば画像処理、といったイメージがありがちですが、これは画像のような情報は近い位置に似た情報が載っていることが多いので
+        この畳み込みとの相性がいいからです。
+      </p>
+      <h2>
+        畳み込み
+      </h2>
+      <p>
+        畳み込みという仕組みを詳しく見ていきたいです。この畳み込みという単語は信号処理の分野由来の単語のようです。
+      </p>
+      <p>
+        グレースケールのサイズ\(W \times H\)の画像に対して、サイズ\(W_f \times H_f\)のフィルタ\(h_{pq}\)を適用することを考えます。
+        このとき行われる画像の畳み込みは以下のように定義されます。入力画像の画素を\(x_{ij}\)として表しています。
+        \[
+        u_{ij} = \sum_{p=0}^{W_f-1} \sum_{q=0}^{H_f-1} x_{i+p, j+q} h_{pq}
+        \]
+      </p>
+      <p>
+        これはアダマール積の総和を計算しているだけになります。
+        ちなみに信号処理分野でいう畳み込みは
+        \[
+        u_{ij} = \sum_{p=0}^{W_f-1} \sum_{q=0}^{H_f-1} x_{i-p, j-q} h_{pq}
+        \]
+        と定義をするようで、フィルタが上下左右に反転されるようになるわけですが、本質的には同じなのでこのように慣用的に定義されているようです。
+      </p>
+      <p>
+        この畳み込みフィルタをどれくらいの間隔で適用するかを"ストライド"と呼びます。
+        ここまでの説明を簡略化したのが以下の図になります。
+      </p>
+        <img src="../image/convolution.png" alt="畳み込みのイメージ" class="responsive-img">
+      <p>
+        ここでは8\(\times\)8サイズの画像に対して4\(\times\)4サイズのフィルタをストライド2で適用した例を示しています。
+      </p>  
+    </article>
+  </main>
+  
+  <aside class="sidebar">
+    <h3>カテゴリ</h3>
+    <ul>
+      <li><a href="/papers" >論文記録</a></li>
+      <li><a href="/ML" class="active">機械学習のお勉強</a></li>
+      <li><a href="/programming">その他プログラミング / 情報科学</a></li>
+      <li><a href="/biology">その他生物学関連</a></li>
+    </ul>
+  </aside>
+</div>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()">
+  <span>☰</span>
+</button>
+
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+  
+  <footer>
+    <p>&copy; 2025 utcbBlog 勉強したことをまとめていくブログ. All rights reserved.</p>
+  </footer>
+
+  <script>
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+  
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+}
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block');
+  const codeContent = codeBlock.querySelector('.code-content code');
+  const text = codeContent.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('コピーに失敗しました:', err);
+    // フォールバック: 古いブラウザ対応
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
